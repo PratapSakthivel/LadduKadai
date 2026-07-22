@@ -2,10 +2,10 @@ package com.laddukadai.backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Instant;
 
 @Entity
 @Table(name = "products")
@@ -39,11 +39,7 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = Timestamp.from(Instant.now());
-    }
 }
