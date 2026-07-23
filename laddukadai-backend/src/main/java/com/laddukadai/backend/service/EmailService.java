@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -83,6 +84,94 @@ public class EmailService {
                 customerName, customerPhone, productName, quantityKg, totalAmount, address
         );
         sendEmail(ownerEmail, subject, body);
+    }
+
+    public void sendSubscriptionConfirmationToCustomer(
+            String toEmail, String customerName, String productName,
+            BigDecimal quantityKg, BigDecimal totalAmount,
+            LocalDate firstDeliveryDate, Integer frequencyDays, String address) {
+        String subject = "Your Laddu Kadai Subscription is Confirmed!";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "Your subscription at Laddu Kadai has been successfully created!\n\n" +
+                "Subscription Details:\n" +
+                "- Product: %s\n" +
+                "- Quantity per Delivery: %s kg\n" +
+                "- Total per Delivery: ₹%s\n" +
+                "- Frequency: Every %d days\n" +
+                "- First Delivery Date: %s\n" +
+                "- Delivery Address: %s\n\n" +
+                "Note: You will receive a reminder email 2 days before each scheduled delivery.\n\n" +
+                "Warm regards,\n" +
+                "The Laddu Kadai Team",
+                customerName, productName, quantityKg, totalAmount, frequencyDays, firstDeliveryDate, address
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
+    public void sendDeliveryReminderToCustomer(
+            String toEmail, String customerName, String productName,
+            BigDecimal quantityKg, BigDecimal totalAmount,
+            LocalDate deliveryDate, String cancelLink) {
+        String subject = "Reminder: Your Laddu Kadai Delivery is in 2 Days!";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "This is a friendly reminder that your upcoming Laddu Kadai subscription delivery is scheduled for %s.\n\n" +
+                "Delivery Details:\n" +
+                "- Product: %s\n" +
+                "- Quantity: %s kg\n" +
+                "- Total Amount: ₹%s\n\n" +
+                "If you need to skip or cancel this subscription, you can do so here:\n%s\n\n" +
+                "Warm regards,\n" +
+                "The Laddu Kadai Team",
+                customerName, deliveryDate, productName, quantityKg, totalAmount, cancelLink
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
+    public void sendSubscriptionCancelledToOwner(
+            String ownerEmail, String customerName, String customerPhone,
+            String productName, LocalDate cancelledDeliveryDate) {
+        String subject = "Subscription Cancelled — " + customerName;
+        String body = String.format(
+                "Hello Owner,\n\n" +
+                "A subscription has been cancelled.\n\n" +
+                "Customer: %s (%s)\n" +
+                "Product: %s\n" +
+                "Next Scheduled Delivery Was: %s\n\n" +
+                "Regards,\n" +
+                "Laddu Kadai System",
+                customerName, customerPhone, productName, cancelledDeliveryDate
+        );
+        sendEmail(ownerEmail, subject, body);
+    }
+
+    public void sendSubscriptionRenewalReminder(
+            String toEmail, String customerName, String productName, LocalDate expiryDate) {
+        String subject = "Your Laddu Kadai Subscription Renews Soon";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "Your subscription for %s has an upcoming delivery date around %s.\n" +
+                "We encourage you to keep enjoying our fresh, organic laddus!\n\n" +
+                "Warm regards,\n" +
+                "The Laddu Kadai Team",
+                customerName, productName, expiryDate
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
+    public void sendSubscriptionPausedConfirmation(
+            String toEmail, String customerName, LocalDate pausedUntil) {
+        String subject = "Your Subscription has been Paused";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "Your subscription at Laddu Kadai has been paused until %s.\n" +
+                "It will automatically resume after this date.\n\n" +
+                "Warm regards,\n" +
+                "The Laddu Kadai Team",
+                customerName, pausedUntil
+        );
+        sendEmail(toEmail, subject, body);
     }
 
     /**
