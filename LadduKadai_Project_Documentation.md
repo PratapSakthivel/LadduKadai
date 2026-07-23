@@ -18,11 +18,11 @@
 |-------------|-----------------------------------|
 | Frontend    | Angular                           |
 | Backend     | Spring Boot                       |
-| Database    | MySQL (Aiven Free Tier)           |
+| Database    | MySQL                             |
 | Auth        | JWT (Role Based)                  |
 | Email       | JavaMailSender (Gmail SMTP)       |
 | Deployment  | Render (Backend + Frontend)       |
-| DB Hosting  | Aiven Free MySQL Instance         |
+
 
 ---
 
