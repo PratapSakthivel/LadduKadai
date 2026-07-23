@@ -21,7 +21,6 @@
 | Database    | MySQL                             |
 | Auth        | JWT (Role Based)                  |
 | Email       | JavaMailSender (Gmail SMTP)       |
-| Deployment  | Render (Backend + Frontend)       |
 
 
 ---
