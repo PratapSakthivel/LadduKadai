@@ -1,10 +1,7 @@
 package com.laddukadai.backend.scheduler;
 
 import com.laddukadai.backend.model.*;
-import com.laddukadai.backend.repository.OrderRepository;
-import com.laddukadai.backend.repository.ProductRepository;
-import com.laddukadai.backend.repository.SubscriptionRepository;
-import com.laddukadai.backend.repository.UserRepository;
+import com.laddukadai.backend.repository.*;
 import com.laddukadai.backend.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +23,13 @@ public class SubscriptionScheduler {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final EodReportRepository eodReportRepository;
     private final EmailService emailService;
 
     @Value("${app.base-url:http://localhost:4200}")
     private String baseUrl;
+
+    // ─── Subscription Tasks ───────────────────────────────────────────────────
 
     @Scheduled(cron = "0 0 9 * * *")
     public void sendDeliveryReminders() {
@@ -41,7 +41,6 @@ public class SubscriptionScheduler {
         for (Subscription sub : subscriptions) {
             BigDecimal totalAmount = sub.getQuantityKg().multiply(sub.getProduct().getPricePerKg());
             String cancelLink = baseUrl + "/cancel-delivery/" + sub.getId();
-
             emailService.sendDeliveryReminderToCustomer(
                     sub.getCustomer().getEmail(),
                     sub.getCustomer().getName(),
@@ -105,7 +104,6 @@ public class SubscriptionScheduler {
 
             orderRepository.save(order);
 
-            // Update next delivery date
             sub.setNextDeliveryDate(sub.getNextDeliveryDate().plusDays(sub.getFrequencyDays()));
             subscriptionRepository.save(sub);
             log.info("Auto-created order for subscription id: {}, next delivery: {}", sub.getId(), sub.getNextDeliveryDate());
@@ -141,6 +139,26 @@ public class SubscriptionScheduler {
             sub.setStatus(SubscriptionStatus.EXPIRED);
             subscriptionRepository.save(sub);
             log.info("Marked subscription id: {} as EXPIRED", sub.getId());
+        }
+    }
+
+    // ─── Delivery Tasks ───────────────────────────────────────────────────────
+
+    @Scheduled(cron = "0 0 20 * * *")
+    public void checkMissingEodReports() {
+        log.info("Running scheduled task: checkMissingEodReports");
+        LocalDate today = LocalDate.now();
+        List<User> deliveryMen = userRepository.findByRole(Role.DELIVERY_MAN);
+        List<User> owners = userRepository.findByRole(Role.OWNER);
+
+        for (User deliveryMan : deliveryMen) {
+            boolean submitted = eodReportRepository.existsByDeliveryManIdAndReportDate(deliveryMan.getId(), today);
+            if (!submitted) {
+                log.warn("Delivery man {} has not submitted EOD report for {}", deliveryMan.getName(), today);
+                if (!owners.isEmpty()) {
+                    emailService.sendMissingEodAlertToOwner(owners.get(0).getEmail(), deliveryMan.getName());
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -172,6 +173,87 @@ public class EmailService {
                 customerName, pausedUntil
         );
         sendEmail(toEmail, subject, body);
+    }
+
+    public void sendDeliveryAssignedToDeliveryMan(
+            String toEmail, String deliveryManName,
+            List<String> customerNames, LocalDate deliveryDate) {
+        String subject = "Your Deliveries for " + deliveryDate;
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "You have been assigned deliveries scheduled for %s:\n\n" +
+                "- Customers: %s\n\n" +
+                "Please log into your delivery app to view address details and process deliveries.\n\n" +
+                "Regards,\nLaddu Kadai Management",
+                deliveryManName, deliveryDate, String.join(", ", customerNames)
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
+    public void sendNotHomeRescheduleToCustomer(
+            String toEmail, String customerName,
+            String productName, LocalDate rescheduleDate) {
+        String subject = "Delivery Rescheduled — Laddu Kadai";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "We attempted to deliver your %s today, but we missed you.\n" +
+                "Your delivery has been rescheduled for %s.\n\n" +
+                "If you need to make changes, please contact us.\n\n" +
+                "Warm regards,\nThe Laddu Kadai Team",
+                customerName, productName, rescheduleDate
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
+    public void sendRejectionAlertToOwner(
+            String ownerEmail, String customerName,
+            String customerPhone, String productName,
+            String rejectionReason) {
+        String subject = "Order Rejected by Customer — Action Required";
+        String body = String.format(
+                "Hello Owner,\n\n" +
+                "An order delivery has been rejected by customer.\n\n" +
+                "- Customer: %s (%s)\n" +
+                "- Product: %s\n" +
+                "- Reason: %s\n\n" +
+                "Please review and contact the customer if necessary.\n\n" +
+                "Regards,\nLaddu Kadai System",
+                customerName, customerPhone, productName, rejectionReason
+        );
+        sendEmail(ownerEmail, subject, body);
+    }
+
+    public void sendEodReportToOwner(
+            String ownerEmail, String deliveryManName,
+            LocalDate reportDate, BigDecimal totalCash,
+            Integer totalDeliveries, Integer notHome,
+            Integer rejected) {
+        String subject = "EOD Report — " + deliveryManName + " — " + reportDate;
+        String body = String.format(
+                "Hello Owner,\n\n" +
+                "End of Day Report received from %s for %s:\n\n" +
+                "- Total Cash Collected: ₹%s\n" +
+                "- Total Successful Deliveries: %d\n" +
+                "- Total Not Home: %d\n" +
+                "- Total Rejected: %d\n\n" +
+                "Please verify the cash in hand.\n\n" +
+                "Regards,\nLaddu Kadai System",
+                deliveryManName, reportDate, totalCash, totalDeliveries, notHome, rejected
+        );
+        sendEmail(ownerEmail, subject, body);
+    }
+
+    public void sendMissingEodAlertToOwner(
+            String ownerEmail, String deliveryManName) {
+        String subject = "ALERT: EOD Report Not Submitted — " + deliveryManName;
+        String body = String.format(
+                "Hello Owner,\n\n" +
+                "WARNING: Delivery partner %s has NOT submitted their End of Day (EOD) report for today.\n\n" +
+                "Please follow up with them immediately.\n\n" +
+                "Regards,\nLaddu Kadai System",
+                deliveryManName
+        );
+        sendEmail(ownerEmail, subject, body);
     }
 
     /**
