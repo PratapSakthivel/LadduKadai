@@ -256,6 +256,39 @@ public class EmailService {
         sendEmail(ownerEmail, subject, body);
     }
 
+    public void sendReferralRewardEarnedToCustomer(
+            String toEmail, String customerName,
+            Integer gramsEarned, Integer confirmedReferrals) {
+        String subject = "You earned a free reward — Laddu Kadai!";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "Congratulations! You referred %d customers to Laddu Kadai.\n" +
+                "You have earned %dg free laddus on your next delivery!\n\n" +
+                "You can apply this reward directly to your next order from your account dashboard.\n\n" +
+                "Thank you for sharing the sweetness!\n\n" +
+                "Warm regards,\n" +
+                "The Laddu Kadai Team",
+                customerName, confirmedReferrals, gramsEarned
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
+    public void sendReferralConfirmedToReferrer(
+            String toEmail, String referrerName,
+            String referredName, Integer currentCount) {
+        String subject = "Your referral was confirmed — " + currentCount + "/5";
+        String body = String.format(
+                "Hello %s,\n\n" +
+                "Great news! %s completed their first delivery with Laddu Kadai.\n" +
+                "Your referral count is now %d/5.\n\n" +
+                "Keep sharing your referral link to earn free laddus on reaching 5 referrals!\n\n" +
+                "Warm regards,\n" +
+                "The Laddu Kadai Team",
+                referrerName, referredName, currentCount
+        );
+        sendEmail(toEmail, subject, body);
+    }
+
     /**
      * Generic helper method to send a simple plain text email.
      * Catches and logs all exceptions to ensure email failures do not disrupt execution flows.

@@ -8,23 +8,34 @@ import com.laddukadai.backend.exception.DuplicateResourceException;
 import com.laddukadai.backend.exception.InvalidCredentialsException;
 import com.laddukadai.backend.model.User;
 import com.laddukadai.backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final EmailService emailService;
+    private final ReferralService referralService;
+
+    public AuthService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       JwtUtil jwtUtil,
+                       EmailService emailService,
+                       @Lazy ReferralService referralService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+        this.emailService = emailService;
+        this.referralService = referralService;
+    }
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
@@ -60,6 +71,10 @@ public class AuthService {
                 .build();
 
         user = userRepository.save(user);
+
+        // Create referral record if user was referred by someone
+        referralService.createReferralRecord(user);
+
         emailService.sendWelcomeEmail(user.getEmail(), user.getName());
 
         String jwt = jwtUtil.generateToken(user);

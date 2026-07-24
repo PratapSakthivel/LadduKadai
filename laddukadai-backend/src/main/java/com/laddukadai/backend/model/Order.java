@@ -57,6 +57,8 @@ public class Order {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String deliveryAddress;
 
+    private String notes;
+
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdAt;

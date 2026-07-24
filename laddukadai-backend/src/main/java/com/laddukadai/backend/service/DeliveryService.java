@@ -4,8 +4,7 @@ import com.laddukadai.backend.dto.*;
 import com.laddukadai.backend.exception.ResourceNotFoundException;
 import com.laddukadai.backend.model.*;
 import com.laddukadai.backend.repository.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
@@ -26,6 +23,21 @@ public class DeliveryService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final ReferralService referralService;
+
+    public DeliveryService(DeliveryRepository deliveryRepository,
+                           EodReportRepository eodReportRepository,
+                           OrderRepository orderRepository,
+                           UserRepository userRepository,
+                           EmailService emailService,
+                           @Lazy ReferralService referralService) {
+        this.deliveryRepository = deliveryRepository;
+        this.eodReportRepository = eodReportRepository;
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
+        this.emailService = emailService;
+        this.referralService = referralService;
+    }
 
     @Transactional
     public DeliveryResponse assignDelivery(Long orderId, Long deliveryManId, String ownerEmail) {
@@ -103,6 +115,10 @@ public class DeliveryService {
         orderRepository.save(order);
 
         Delivery saved = deliveryRepository.save(delivery);
+
+        // Trigger referral confirmation for the customer
+        referralService.confirmReferral(order.getCustomer().getId());
+
         return mapToDeliveryResponse(saved);
     }
 
