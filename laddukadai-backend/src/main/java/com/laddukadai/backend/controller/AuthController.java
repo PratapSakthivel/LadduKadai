@@ -14,6 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -105,5 +108,88 @@ public class AuthController {
 
         emailService.sendEmail(email, subject, body);
         return ResponseEntity.ok(Map.of("message", "Summary report email triggered to " + email));
+    }
+
+    @PostMapping("/trigger-all-16-emails")
+    public ResponseEntity<Map<String, String>> triggerAll16Emails(@RequestParam(defaultValue = "pratapssakthivel@gmail.com") String email) {
+        // 1. Welcome Email
+        emailService.sendWelcomeEmail(email, "Pratap Sakthivel");
+
+        // 2. Low Stock Alert
+        emailService.sendLowStockAlert(email, "Cashew Laddu", new BigDecimal("1.50"));
+
+        // 3. Instant Order Confirmation to Customer
+        emailService.sendInstantOrderConfirmationToCustomer(
+                email, "Pratap Sakthivel", "Cashew Laddu",
+                new BigDecimal("2.00"), new BigDecimal("1600.00"), "123 Green Street, Tiruppur"
+        );
+
+        // 4. New Instant Order Alert to Owner
+        emailService.sendNewInstantOrderAlertToOwner(
+                email, "Pratap Sakthivel", "9876543210",
+                "Cashew Laddu", new BigDecimal("2.00"), new BigDecimal("1600.00"), "123 Green Street, Tiruppur"
+        );
+
+        // 5. Subscription Confirmation to Customer
+        emailService.sendSubscriptionConfirmationToCustomer(
+                email, "Pratap Sakthivel", "Dry Fruit Laddu",
+                new BigDecimal("1.00"), new BigDecimal("1000.00"),
+                LocalDate.now().plusDays(7), 7, "123 Green Street, Tiruppur"
+        );
+
+        // 6. Delivery Reminder to Customer (2 days prior)
+        emailService.sendDeliveryReminderToCustomer(
+                email, "Pratap Sakthivel", "Dry Fruit Laddu",
+                new BigDecimal("1.00"), new BigDecimal("1000.00"),
+                LocalDate.now().plusDays(2), "http://localhost:4200/cancel-delivery/1"
+        );
+
+        // 7. Subscription Cancelled Alert to Owner
+        emailService.sendSubscriptionCancelledToOwner(
+                email, "Pratap Sakthivel", "9876543210",
+                "Dry Fruit Laddu", LocalDate.now().plusDays(2)
+        );
+
+        // 8. Subscription Renewal Reminder
+        emailService.sendSubscriptionRenewalReminder(
+                email, "Pratap Sakthivel", "Coconut Laddu", LocalDate.now().plusDays(3)
+        );
+
+        // 9. Subscription Paused Confirmation
+        emailService.sendSubscriptionPausedConfirmation(
+                email, "Pratap Sakthivel", LocalDate.now().plusDays(14)
+        );
+
+        // 10. Delivery Assigned to Delivery Man
+        emailService.sendDeliveryAssignedToDeliveryMan(
+                email, "Ramu Delivery", List.of("Pratap Sakthivel", "Anand Kumar"), LocalDate.now()
+        );
+
+        // 11. Not Home Reschedule Notice to Customer
+        emailService.sendNotHomeRescheduleToCustomer(
+                email, "Pratap Sakthivel", "Cashew Laddu", LocalDate.now().plusDays(1)
+        );
+
+        // 12. Rejection Alert to Owner
+        emailService.sendRejectionAlertToOwner(
+                email, "Pratap Sakthivel", "9876543210", "Coconut Laddu", "Customer out of station"
+        );
+
+        // 13. End of Day (EOD) Cash Report to Owner
+        emailService.sendEodReportToOwner(
+                email, "Ramu Delivery", LocalDate.now(),
+                new BigDecimal("3400.00"), 4, 1, 0
+        );
+
+        // 14. Missing EOD Report 8:00 PM Alert to Owner
+        emailService.sendMissingEodAlertToOwner(email, "Ramu Delivery");
+
+        // 15. Referral Confirmed Notice to Referrer
+        emailService.sendReferralConfirmedToReferrer(email, "Pratap Sakthivel", "Karthik Raja", 3);
+
+        // 16. Referral 250g Free Reward Earned Notice
+        emailService.sendReferralRewardEarnedToCustomer(email, "Pratap Sakthivel", 250, 5);
+
+        return ResponseEntity.ok(Map.of("message", "All 16 sample emails have been triggered individually to " + email));
     }
 }
