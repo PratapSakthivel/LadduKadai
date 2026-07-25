@@ -216,35 +216,6 @@ Traditional sweet shops face significant operational challenges:
 - Seasonal product promotions
 - Customer feedback and ratings
 
----
-
-## 📸 Screenshots
-
-### Customer Dashboard
-![Customer Dashboard](./docs/screenshots/customer-dashboard.png)
-> Browse products, view subscription status, and track active orders
-
-### Owner Product Management
-![Owner Dashboard](./docs/screenshots/owner-products.png)
-> Manage product catalog with real-time stock updates
-
-### Subscription Calendar
-![Subscription Calendar](./docs/screenshots/subscription-calendar.png)
-> Visual timeline of upcoming subscription deliveries
-
-### Delivery Man Route View
-![Delivery Route](./docs/screenshots/delivery-route.png)
-> Today's assigned deliveries with customer details and addresses
-
-### Referral Leaderboard
-![Referral Leaderboard](./docs/screenshots/referral-leaderboard.png)
-> Gamified referral statistics with top performers
-
-### EOD Report Dashboard
-![EOD Report](./docs/screenshots/eod-report.png)
-> Daily cash collection reconciliation interface
-
----
 
 ## 🏗️ System Architecture
 
