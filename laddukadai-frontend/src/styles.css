@@ -1,1 +1,184 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* ============================
+   CSS Reset & Base
+   ============================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #1e293b;
+  background-color: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================
+   Layout Utilities
+   ============================ */
+.page-container {
+  padding: 32px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+/* ============================
+   Status Color Utilities
+   ============================ */
+.status-pending { color: #d97706; font-weight: 600; }
+.status-confirmed { color: #4338ca; font-weight: 600; }
+.status-delivered { color: #10b981; font-weight: 600; }
+.status-cancelled { color: #64748b; font-weight: 500; }
+.status-rejected { color: #dc2626; font-weight: 600; }
+.status-active { color: #10b981; font-weight: 600; }
+.status-paused { color: #d97706; font-weight: 600; }
+
+/* ============================
+   Angular Material Overrides
+   ============================ */
+mat-card {
+  border-radius: 16px !important;
+}
+
+mat-card-content {
+  padding: 20px !important;
+}
+
+.mat-mdc-table {
+  background: transparent !important;
+}
+
+th.mat-mdc-header-cell {
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: #64748b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding: 12px 16px !important;
+  background-color: #f8fafc !important;
+}
+
+td.mat-mdc-cell {
+  color: #1e293b;
+  padding: 14px 16px !important;
+  font-size: 14px;
+  border-bottom: 1px solid #f8fafc !important;
+  vertical-align: middle !important;
+}
+
+tr.mat-mdc-row:hover {
+  background: #f8fafc !important;
+}
+
+.mat-mdc-form-field {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.mdc-text-field {
+  border-radius: 10px !important;
+}
+
+.mat-mdc-raised-button {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: none !important;
+}
+
+.mat-mdc-button {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-stroked-button {
+  border-radius: 8px !important;
+}
+
+.mat-mdc-chip-option {
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* Navbar height consistency */
+mat-toolbar {
+  height: 64px !important;
+}
+
+/* ============================
+   Snackbar Styles
+   ============================ */
+.error-snackbar {
+  background-color: #dc2626 !important;
+  color: #fff !important;
+}
+
+.success-snackbar {
+  background-color: #10b981 !important;
+  color: #fff !important;
+}
+
+/* ============================
+   Scroll & Overflow
+   ============================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================
+   Link Resets
+   ============================ */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* ============================
+   Responsive Utilities
+   ============================ */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 22px !important;
+  }
+}
