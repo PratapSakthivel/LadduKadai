@@ -496,32 +496,3 @@ GET /api/dashboard/stock-alerts  → Low stock alerts
     [ ] EOD report submitted
     [ ] All emails triggering correctly
 ```
-
----
-
-## 13. INTERVIEW STORY (MEMORIZE THIS)
-
-> "My family runs an organic sweet shop in Dharapuram, Tamil Nadu — Laddu Kadai. We make over 20 varieties of laddus. Sales were strong but growth was stagnant because everything was manual — orders on WhatsApp, no delivery accountability, no way to reach new customers.
->
-> I identified three core problems: no subscription system for loyal customers, no delivery tracking, and no referral mechanism to grow organically.
->
-> I built a platform with three roles — Owner, Customer, and Delivery Man. Customers can subscribe with their own delivery frequency or place instant orders. The delivery man has a daily dashboard to mark each delivery status and submit an end-of-day cash report. The owner gets email alerts for everything — new orders, rejections, low stock, and missed EOD reports.
->
-> For growth, I built a referral system where every confirmed customer gets a unique referral link. When they refer 5 friends who complete their first payment, they earn 250 grams free on their next delivery. This creates organic word-of-mouth growth with zero advertising cost.
->
-> The entire system uses email for all notifications — no payment gateway complexity, cash on delivery with full accountability.
->
-> Within the first month of using this system, we had predictable monthly revenue from subscriptions for the first time."
-> the project is build phase by phase according to it 
-
----
-
-## 14. ONE LINER FOR RESUME
-
-**Laddu Kadai Platform** — Built a D2C subscription and referral management system for a family-owned organic sweet business using Spring Boot and Angular. Features include role-based JWT auth (Owner, Customer, Delivery Man), subscription management with auto email reminders, delivery accountability with EOD reporting, and a referral reward system driving organic customer growth.
-
----
-
-*Documentation Version: 1.0*
-*Project: Laddu Kadai Platform*
-*Stack: Spring Boot + Angular + MySQL (Aiven) + Render*
