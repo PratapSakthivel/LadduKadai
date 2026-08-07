@@ -3374,7 +3374,7 @@ SOFTWARE.
 **Full Stack Java Developer | Spring Boot & Angular Specialist**
 
 ```
-🎓 Education: Computer Science Engineering
+🎓 Education: Information Technology
 💼 Expertise: Enterprise Application Development, SaaS Platforms
 🏆 Specialization: Subscription Systems, E-commerce Solutions, Microservices
 ⚡ Tech Stack: Java 17, Spring Boot, Angular, MySQL, Docker, AWS
