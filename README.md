@@ -3408,14 +3408,6 @@ SOFTWARE.
     </td>
   </tr>
 </table>
-
-### Other Notable Projects
-
-**🛒 E-Commerce Platform** — MERN stack marketplace with 50K+ users and payment gateway integration  
-**🏥 Healthcare Management** — Spring Boot + React patient portal with appointment scheduling  
-**💬 Real-Time Chat System** — WebSocket-based messaging with 10K+ concurrent connections  
-**📊 Analytics Dashboard** — Python + Django data visualization platform for business intelligence
-
 </div>
 
 ---
