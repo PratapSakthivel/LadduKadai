@@ -3420,8 +3420,8 @@ SOFTWARE.
 
 | Channel | Purpose | Response Time |
 |---------|---------|---------------|
-| **[GitHub Issues](https://github.com/your-username/LadduKadai/issues)** | Bug reports, feature requests | 24-48 hours |
-| **[Discussions](https://github.com/your-username/LadduKadai/discussions)** | General questions, ideas | 48-72 hours |
+| **[GitHub Issues](https://github.com/PratapSakthivel/LadduKadai/issues)** | Bug reports, feature requests | 24-48 hours |
+| **[Discussions](https://github.com/PratapSakthivel/LadduKadai/discussions)** | General questions, ideas | 48-72 hours |
 | **[Email](mailto:pratapssakthivel@gmail.com)** | Private inquiries, collaboration | 2-3 days |
 | **Documentation** | This README | Instant |
 
@@ -3464,7 +3464,7 @@ We welcome contributions! See our [Contributor Guide](#-contributor-guide) for d
 
 ---
 
-### 📚 Documentation | 🐛 [Report Bug](https://github.com/your-username/LadduKadai/issues) | 💡 [Request Feature](https://github.com/your-username/LadduKadai/issues)
+### 📚 Documentation | 🐛 [Report Bug](https://github.com/PratapSakthivel/LadduKadai/issues) | 💡 [Request Feature](https://github.com/PratapSakthivel/LadduKadai/issues)
 
 *Copyright © 2026 LadduKadai. All rights reserved.*
 
