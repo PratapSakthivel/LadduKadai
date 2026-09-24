@@ -3385,12 +3385,12 @@ SOFTWARE.
 <table>
   <tr>
     <td align="center">
-      <a href="https://www.linkedin.com/in/your-profile">
+      <a href="https://www.linkedin.com/in/pratap-s-587b0b342/">
         <img src="https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/your-username">
+      <a href="https://github.com/PratapSakthivel">
         <img src="https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
       </a>
     </td>
@@ -3402,7 +3402,7 @@ SOFTWARE.
       </a>
     </td>
     <td align="center">
-      <a href="https://your-portfolio.com">
+      <a href="https://chat.z.ai/space/p1z487v94w51-art">
         <img src="https://img.shields.io/badge/Portfolio-Visit-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/>
       </a>
     </td>
